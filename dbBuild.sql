@@ -5,12 +5,12 @@ DROP TABLE IF EXISTS tblModificationLog;
 
 
 CREATE TABLE tblUsers(
-	pk_id INT not null,
+	pk_id INT PRIMARY KEY not null,
 	fdEmailAddress TEXT not null
 );
 
 CREATE TABLE tblMonitoredPages(
-	pk_id INT not null,
+	pk_id INT PRIMARY KEY not null,
 	fdURL TEXT not null,
 	fdHash BLOB,
 	fdLastUpdate TEXT,

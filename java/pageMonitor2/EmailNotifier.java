@@ -1,3 +1,5 @@
+package pageMonitor2;
+
 import java.io.File;
 import java.util.Properties;
 
@@ -52,8 +54,8 @@ public class EmailNotifier implements Observer {
 	public void emailStuff() {
 		to = "smm178@case.edu";
 		from = "smchenry2014@gmail.com";
-		String username = "smchenry2014@gmail.com";
-		String password = "Mcwilak5";
+		final String username = "smchenry2014@gmail.com";
+		final String password = "Mcwilak5";
 		Properties properties = new Properties();
 		properties.put("mail.smtp.auth", "true");
 		properties.put("mail.smtp.starttls.enable","true");

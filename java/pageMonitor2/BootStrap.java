@@ -1,26 +1,29 @@
 package pageMonitor2;
 
+import pageMonitor2.com.monitor.pageMonitor;
+import pageMonitor2.com.NotificationEngine.*;
+
 
 public class BootStrap {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		webPage page = new webPage(1,"https://www.cs.drexel.edu/~shm45/test.html");
 		pageMonitor monitor = new pageMonitor();
-		monitor.addPage(1, page);
-			
+		
+		NotificationEngine engine = new NotificationEngine(monitor);
+		
+		engine.initialize();
+		
 		monitor.startMonitoring();
 		
-		notification n = new notification("simon");
+		engine.startMonitoring();
 		
-		monitor.addWatcher(1,1,n);
-		
-		try {
+		try{
 			monitor.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			engine.join();
+		}
+		catch(Exception e){
+			
 		}
 	}
-
 }

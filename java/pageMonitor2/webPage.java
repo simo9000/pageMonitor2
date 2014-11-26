@@ -3,6 +3,12 @@ package pageMonitor2;
 import java.util.Arrays;
 import java.util.Observer;
 
+import pageMonitor2.com.monitor.HTTPGetHandler;
+import pageMonitor2.com.monitor.HashCreator;
+import pageMonitor2.com.monitor.HashUpdater;
+import pageMonitor2.com.monitor.LogEntry;
+import pageMonitor2.com.monitor.notificationHandler;
+
 public class webPage extends HTTPGetHandler {
 
 	private int PageID;
@@ -23,6 +29,10 @@ public class webPage extends HTTPGetHandler {
 	public void considerRefresh(){
 		// TODO - add probabilistic stuff here
 		refresh();
+	}
+	
+	public double getRequestTime(){
+		return getRequest_Time();
 	}
 	
 	@Override

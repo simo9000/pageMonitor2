@@ -30,7 +30,8 @@ public class HashUpdater extends Thread {
 			con.setAutoCommit(false);
 			Statement stmt = con.createStatement();
 			String sql = "UPDATE tblMonitoredPages " +  
-						 "SET fdHash='" + Arrays.toString(NewHash) + "';";
+						 "SET fdHash='" + Arrays.toString(NewHash) + "'" +
+						 "WHERE pk_id=" + PageID + ";";
 			stmt.executeUpdate(sql);
 			stmt.close();
 			con.commit();

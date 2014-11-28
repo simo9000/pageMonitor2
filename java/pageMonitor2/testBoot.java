@@ -5,7 +5,7 @@ import pageMonitor2.com.monitor.pageMonitor;
 public class testBoot {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 		webPage page1 = new webPage(1,"https://www.cs.drexel.edu/~shm45/test.html");
 		webPage page2 = new webPage(2,"https://www.cs.drexel.edu/~shm45/index.html");
 		pageMonitor monitor = new pageMonitor();
@@ -23,10 +23,7 @@ public class testBoot {
 		
 		try {
 			monitor.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (InterruptedException e) {}
 	}
 
 }

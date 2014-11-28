@@ -47,18 +47,19 @@ class pageMonitor extends Thread{
       val end = Calendar.getInstance()
       val diff = end.getTimeInMillis() - start.getTimeInMillis()
       val sleepTime = (getAverageRequestTime - diff).asInstanceOf[Long]
-      //println(sleepTime)
-      if (sleepTime > 0) Thread.sleep(sleepTime) else Thread.sleep(2000)
+      if (sleepTime > 50) Thread.sleep(sleepTime) else Thread.sleep(2000)
     }
   }
   
   private def getAverageRequestTime(): Long = {
+    if (pageMaster.size == 0)
+      return 0
     val it = pageMaster.iterator
     var total : Double = 0
     while (it.hasNext){
       total += it.next()._2.getRequest_Time()
     }
-    return (total / pageMaster.size).toLong
+    return (total / pageMaster.size).toLong  
   }
   
     

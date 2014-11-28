@@ -13,11 +13,12 @@ public class webPage extends HTTPGetHandler {
 
 	private int PageID;
 	private byte[] Hash = null;
-	private notificationHandler handler = new notificationHandler();
+	private notificationHandler handler;
 	
 	public webPage(int pageID, String url){
 		setURL(url);
 		PageID = pageID;
+		handler = new notificationHandler(url);
 	}
 	
 	public webPage(int pageID, String url, byte[] hash){

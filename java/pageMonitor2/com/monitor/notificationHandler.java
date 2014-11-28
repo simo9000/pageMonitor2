@@ -7,10 +7,15 @@ import java.util.Observer;
 public class notificationHandler extends Observable{
 
 	private HashMap<Integer,Observer> watchers = new HashMap<Integer,Observer>();
+	private String URL;
+	
+	public notificationHandler(String URL_){
+		URL = URL_;
+	}
 	
 	public void sendNotifications(){
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(URL);
 		this.clearChanged();
 	}
 		

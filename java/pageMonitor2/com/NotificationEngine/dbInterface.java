@@ -29,7 +29,6 @@ public class dbInterface {
 		Connection con = getConnection();
 		Statement stmt = con.createStatement();
         ResultSet result = stmt.executeQuery(sql);
-        stmt.close();
         return result;
 	}
 	
@@ -41,17 +40,18 @@ public class dbInterface {
 	}
 	
 	public static ResultSet getNewPages() throws SQLException{
-		return getPages(0);
+		ResultSet returnVal = getPages(0);
+		return returnVal;
 	}
 	
 	public static ResultSet getActivePages() throws SQLException{
 		return getPages(1);
 	}
 		
-	public static void setNewPagesToActive() throws SQLException{
+	public static void setNewPageToActive(int pageID) throws SQLException{
 		String sql = "Update tblMonitoredPages " +
 					 "SET fdProcessFlag=1 " + 
-					 "WHERE fdProcessFlag=0;";
+					 "WHERE pk_id=" + pageID + ";";
 		executeUpdate(sql);
 	}
 	
@@ -76,10 +76,10 @@ public class dbInterface {
 		return getNotifications(1);
 	}
 	
-	public static void setNewNotificationsToActive() throws SQLException{
+	public static void setNewNotificationToActive(int pageID, int UserID) throws SQLException{
 		String sql = "Update tblNotificationRequests " +
 					 "SET fdActive=1 " +
-					 "WHERE fdActive=0;";
+					 "WHERE FK_PAGE_ID=" + pageID + " AND FK_USER_ID=" + UserID +";";
 		executeUpdate(sql);
 	}
 	
@@ -90,9 +90,9 @@ public class dbInterface {
 		return executeQuery(sql);
 	}
 	
-	public static void clearDeletedNotifications() throws SQLException{
+	public static void clearDeletedNotification(int pageID, int UserID) throws SQLException{
 		String sql = "DELETE FROM tblNotificationRequests " + 
-					 "WHERE fdActive=2;";
+					 "WHERE FK_PAGE_ID=" + pageID + " AND FK_USER_ID=" + UserID +";";
 		executeUpdate(sql);
 	}
 	
@@ -103,9 +103,9 @@ public class dbInterface {
 		return executeQuery(sql);
 	}
 	
-	public static void clearDeletedPages() throws SQLException{
+	public static void clearDeletedPage(int pageID) throws SQLException{
 		String sql = "DELETE FROM tblMonitoredPages " +
-					 "WHERE fdProcessFlag=2;";
+					 "WHERE pk_id=" + pageID + ";";
 		executeUpdate(sql);
 	}
 	

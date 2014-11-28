@@ -25,9 +25,9 @@ public class EmailNotification implements Observer {
 	public void update(Observable arg0, Object page) {
 		if (debug) System.out.println("sending update to " + emailAddress + " for " + page);
 		String to = emailAddress;
-		String from = "smchenry2014@gmail.com";
-		final String username = "smchenry2014@gmail.com";
-		final String password = "Mcwilak5";
+		String from = "cs575pagemontior@gmail.com";
+		final String username = "cs575pagemontior@gmail.com";
+		final String password = "s;4KksW&b(/x5?p";
 		Properties properties = new Properties();
 		properties.put("mail.smtp.auth", "true");
 		properties.put("mail.smtp.starttls.enable","true");

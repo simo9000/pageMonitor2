@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class HashUpdater extends Thread {
@@ -30,7 +31,7 @@ public class HashUpdater extends Thread {
 			con.setAutoCommit(false);
 			Statement stmt = con.createStatement();
 			String sql = "UPDATE tblMonitoredPages " +  
-						 "SET fdHash='" + Arrays.toString(NewHash) + "'" +
+						 "SET fdHash='" + Arrays.toString(NewHash) + "', fdLastUpdate='" + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()) + "' " +
 						 "WHERE pk_id=" + PageID + ";";
 			stmt.executeUpdate(sql);
 			stmt.close();

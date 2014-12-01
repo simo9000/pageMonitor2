@@ -27,3 +27,5 @@ CREATE TABLE tblModificationLog(
 	FK_PAGE_ID INT NOT NULL,
 	fdUpdateTime TEXT NOT NULL
 );
+
+PRAGMA journal_mode=WAL;

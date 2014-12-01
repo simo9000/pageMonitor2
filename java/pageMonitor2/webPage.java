@@ -21,11 +21,11 @@ public class webPage extends HTTPGetHandler {
 		handler = new notificationHandler(url);
 	}
 	
-	public webPage(int pageID, String url, byte[] hash){
+	/*public webPage(int pageID, String url, byte[] hash){
 		setURL(url);
 		PageID = pageID;
 		Hash = hash;
-	}
+	}*/
 	
 	public void considerRefresh(){
 		// TODO - add probabilistic stuff here
@@ -56,7 +56,7 @@ public class webPage extends HTTPGetHandler {
 		handler.addWithID(id, O);
 	}
 	public void removeWatcher(int id){
-		handler.removeByID(id);;
+		handler.removeByID(id);
 	}
 	
 

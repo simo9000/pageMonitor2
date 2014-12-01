@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMessage;
 public class EmailNotification implements Observer {
 
 	private String emailAddress = null;
-	private Boolean debug = false;
+	private Boolean debug = true;
 	
 	public EmailNotification(String emailAddress_){
 		emailAddress = emailAddress_;
@@ -50,7 +50,7 @@ public class EmailNotification implements Observer {
 						  "</p>" +
 						  "<html>";
 			message.setContent(body,"text/html; charset=utf-8");
-			if (!debug) Transport.send(message);
+			Transport.send(message);
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}

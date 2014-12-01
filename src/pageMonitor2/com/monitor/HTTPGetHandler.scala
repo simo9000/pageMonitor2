@@ -3,14 +3,15 @@ package pageMonitor2.com.monitor
 
 import concurrent._
 import ExecutionContext.Implicits.global
-import java.util.Calendar;
+import java.util.Calendar
+import pageMonitor2.com.monitor.HTTP_GET
 
 abstract class HTTPGetHandler {
   
-  var URL = "empty"
-  var start : Calendar = null
-  var end : Calendar = null
-  var requestTime : Long = 0
+  private var URL = "empty"
+  private var start : Calendar = null
+  private var end : Calendar = null
+  private var requestTime : Long = 0
   
   def setURL(url : String){
     URL = url

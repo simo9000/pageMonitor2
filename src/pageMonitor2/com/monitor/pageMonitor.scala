@@ -8,7 +8,7 @@ import java.util.Calendar;
 
 class pageMonitor extends Thread{
 
-  var pageMaster = new TrieMap[Integer,webPage]();
+  private var pageMaster = new TrieMap[Integer,webPage]();
   
   private var alive = false;
   
@@ -47,7 +47,7 @@ class pageMonitor extends Thread{
       val end = Calendar.getInstance()
       val diff = end.getTimeInMillis() - start.getTimeInMillis()
       val sleepTime = (getAverageRequestTime - diff).asInstanceOf[Long]
-      if (sleepTime > 50) Thread.sleep(sleepTime) else Thread.sleep(2000)
+      if (sleepTime > 20) Thread.sleep(sleepTime) else Thread.sleep(2000)
     }
   }
   

@@ -57,7 +57,7 @@ public class VerboseEmailNotification implements Observer {
 				message.setSubject("UDPATED: " + pageName + ":" + element);
 				String body = pageResult;
 				message.setContent(body,"text/plain; charset=utf-8");
-				if (emailAddress.equals("alkylate2000@gmail.com")) Transport.send(message);
+				Transport.send(message);
 			} catch (MessagingException e) {
 				throw new RuntimeException(e);
 			}

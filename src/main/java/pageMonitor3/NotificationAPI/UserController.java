@@ -13,6 +13,7 @@ import pageMonitor3.webPage;
 import pageMonitor3.NotificationAPI.objects.APIResponse;
 import pageMonitor3.NotificationAPI.objects.PageList;
 import pageMonitor3.NotificationAPI.objects.error;
+import pageMonitor3.NotificationEngine.EmailNotification;
 import pageMonitor3.NotificationEngine.VerboseEmailNotification;
 
 @RestController
@@ -243,13 +244,15 @@ public class UserController {
 		dbInterface.addElementToUserPage(userID, pageID, element);
 		ResultSet emailHolder = dbInterface.getUserEmail(userID);
 		String emailAddress = emailHolder.getString("fdEmailAddress");
-		BootStrap.monitor.addWatcher(pageID, userID, state, new VerboseEmailNotification(emailAddress, state), element);
+		//BootStrap.monitor.addWatcher(pageID, userID, state, new VerboseEmailNotification(emailAddress, state), element);
+		BootStrap.monitor.addWatcher(pageID, userID, state, new EmailNotification(emailAddress));
 	}
 	
 	private void enablePageNotification(int userID, int pageID, pageState state) throws SQLException{
 		ResultSet emailHolder = dbInterface.getUserEmail(userID);
 		String emailAddress = emailHolder.getString("fdEmailAddress");
-		BootStrap.monitor.addWatcher(pageID, userID, state, new VerboseEmailNotification(emailAddress, state));
+		//BootStrap.monitor.addWatcher(pageID, userID, state, new VerboseEmailNotification(emailAddress, state));
+		BootStrap.monitor.addWatcher(pageID, userID, state, new EmailNotification(emailAddress));
 	}
 	
 	private void removeAllWatchers(int userID, int pageID) throws SQLException{

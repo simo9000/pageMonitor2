@@ -34,7 +34,7 @@ class NotificationEngine(monitor: pageMonitor) {
         val notificationType = pageState.valueOf(activeNotifications.getString("fdNotificationType"))
         val emailAddress = activeNotifications.getString("emailAddress")
         if (debug == 1) println("active notification pageID=" + pageID + " found for " + emailAddress + " userID=" + UserID)
-        monitor.addWatcher(pageID, UserID, notificationType, new VerboseEmailNotification(emailAddress, notificationType))
+        monitor.addWatcher(pageID, UserID, notificationType, new EmailNotification(emailAddress))
     }
     
     

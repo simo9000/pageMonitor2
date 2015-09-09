@@ -12,6 +12,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import pageMonitor3.pageState;
+
 public class EmailNotification implements Observer {
 
 	private String emailAddress = null;
@@ -22,8 +24,11 @@ public class EmailNotification implements Observer {
 	}
 	
 	@Override
-	public void update(Observable arg0, Object page) {
-		if (debug) System.out.println("sending update to " + emailAddress + " for " + page);
+	public void update(Observable arg0, Object page_Message) {
+		Tuple5<String, String, pageState, String, String> PM = (Tuple5<String,String,pageState, String, String>)page_Message;
+		String page = (String)PM.a;
+		String pageName = (String)PM.d;
+		if (debug) System.out.println("sending update to " + emailAddress + " for " + pageName);
 		String to = emailAddress;
 		String from = "cs575pagemontior@gmail.com";
 		final String username = "cs575pagemontior@gmail.com";
@@ -46,7 +51,7 @@ public class EmailNotification implements Observer {
 			message.setSubject("pageMonitor Notification");
 			String body = "<html>" + 
 						  "<p>" +
-						  "pageMonitor has detected a change in <a href=\"" + page + "\">" + page + "</a>" +
+						  "pageMonitor has detected a change in <a href=\"" + page + "\">" + pageName + "</a>" +
 						  "</p>" +
 						  "<html>";
 			message.setContent(body,"text/html; charset=utf-8");

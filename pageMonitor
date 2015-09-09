@@ -1,0 +1,18 @@
+#!/bin/bash
+if [ $1 = "start" ]; then
+	if [ -a pid ]; then
+		$pid < pid
+		kill $pid
+	fi	
+	mvn exec:java &
+	echo $! > pid	
+elif [ $1 = "stop" ]; then
+	if [ -a pid ]; then
+		processID=`cat pid`	
+		kill $processID
+		rm pid
+	else	
+		echo pageMonitor not currently running
+	fi 
+fi
+

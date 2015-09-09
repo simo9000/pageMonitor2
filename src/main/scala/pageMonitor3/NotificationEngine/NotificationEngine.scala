@@ -3,15 +3,17 @@ package pageMonitor3.NotificationEngine
 import java.sql.SQLException
 import pageMonitor3.monitor.pageMonitor
 
+import pageMonitor3.monitor
 import pageMonitor3.webPage
+import pageMonitor3.pageState
 import concurrent._
-import java.sql.ResultSet;
+import java.sql.ResultSet
 import ExecutionContext.Implicits.global
 
-class NotificationEngine(monitor: pageMonitor) extends Thread {
+class NotificationEngine(monitor: pageMonitor) {
 
-  private var alive = false;
-  private var pollingFrequency = 5000
+  //private var alive = false;
+  //private var pollingFrequency = 5000
   private val debug = 1; // 1 is debug 0 is not debug
   
   def initialize(){
@@ -19,22 +21,27 @@ class NotificationEngine(monitor: pageMonitor) extends Thread {
     while(activePages.next()){
        val pageID = activePages.getInt("pk_id")
        val URL = activePages.getString("fdURL")
+       val hash = activePages.getString("fdHash");
+       val name = activePages.getString("fdName");
        if (debug == 1) println("active page " + URL + " found")
-       monitor.addPage(pageID,new webPage(pageID,URL))
+       monitor.addPage(pageID,new webPage(pageID,URL,hash,name))
      }
     
-    val activeNotifications = dbInterface.getActiveNotifications()
+    val activeNotifications = dbInterface.getActivePageNotifications()
     while(activeNotifications.next()){
         val pageID = activeNotifications.getInt("PageID")
         val UserID = activeNotifications.getInt("UserID")
+        val notificationType = pageState.valueOf(activeNotifications.getString("fdNotificationType"))
         val emailAddress = activeNotifications.getString("emailAddress")
-        if (debug == 1) println("active notification pageID=" + pageID + " found for " + emailAddress)
-        monitor.addWatcher(pageID, UserID, new EmailNotification(emailAddress))
+        if (debug == 1) println("active notification pageID=" + pageID + " found for " + emailAddress + " userID=" + UserID)
+        monitor.addWatcher(pageID, UserID, notificationType, new VerboseEmailNotification(emailAddress, notificationType))
     }
+    
+    
   }
   
   
-  def startMonitoring(){
+  /*def startMonitoring(){
     alive = true;
     start();
   }
@@ -112,5 +119,5 @@ class NotificationEngine(monitor: pageMonitor) extends Thread {
       
       Thread.sleep(pollingFrequency)
     }
-  }
+  }*/
 }

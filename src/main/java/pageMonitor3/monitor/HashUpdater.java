@@ -13,10 +13,17 @@ public class HashUpdater extends Thread {
 
 	private int PageID;
 	private byte[] NewHash;
+	private String Element = null;
 	
 	public HashUpdater(int pageID, byte[] newHash ){
 		PageID = pageID;
 		NewHash = newHash;
+	}
+	
+	public HashUpdater(int pageID, byte[] newHash, String element){
+		PageID = pageID;
+		NewHash = newHash;
+		Element = element;
 	}
 	
 	public void update(){
@@ -24,6 +31,14 @@ public class HashUpdater extends Thread {
 	}
 	
 	public void run(){
+		if (Element == null)
+			updatePageHash();
+		else
+			updateElementHash();
+		
+	}
+	
+	private void updatePageHash(){
 		Connection con;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -41,6 +56,27 @@ public class HashUpdater extends Thread {
 			System.out.println("Hash update failed for id: " + PageID);
 		} catch (ClassNotFoundException e) {
 			System.out.println("Hash update failed for id: " + PageID);
+		}
+	}
+	
+	private void updateElementHash(){
+		Connection con;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			con = DriverManager.getConnection("jdbc:sqlite:pageMonitor.db");
+			con.setAutoCommit(false);
+			Statement stmt = con.createStatement();
+			String sql = "UPDATE tblPageElements " +  
+						 "SET fdHash='" + Arrays.toString(NewHash) + "'" +
+						 "WHERE FK_PAGE_ID=" + PageID + " AND fdElementName=" + Element + ";";
+			stmt.executeUpdate(sql);
+			stmt.close();
+			con.commit();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Hash update failed for id: " + PageID + " Element: " + Element);
+		} catch (ClassNotFoundException e) {
+			System.out.println("Hash update failed for id: " + PageID + " Element: " + Element);
 		}
 	}
 	

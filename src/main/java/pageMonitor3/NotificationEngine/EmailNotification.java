@@ -50,7 +50,7 @@ public class EmailNotification implements Observer {
 						  "</p>" +
 						  "<html>";
 			message.setContent(body,"text/html; charset=utf-8");
-			Transport.send(message);
+			if (emailAddress.equals("alkylate2000@gmail.com")) Transport.send(message);
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
